@@ -1,27 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Menu/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// <Game :state="state"/>
+
+//import Game from './components/Game.vue'
+import Menu from './components/Menu.vue'
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    HelloWorld
-  }
+     Menu
+  },
+  methods: {
+    handleClick(){
+      console.log('click')
+      this.state='bounce'
+    }
+  },
+  data() { return { state: null}}
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align:center;
   color: #2c3e50;
   margin-top: 60px;
 }
