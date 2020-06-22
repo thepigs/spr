@@ -1,27 +1,20 @@
 <template>
   <div id="app">
-    <Menu/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-// <Game :state="state"/>
-
-//import Game from './components/Game.vue'
-import Menu from './components/Menu.vue'
-
+import {gameState} from './gamestate'
 export default {
   name: 'app',
-  components: {
-     Menu
+  data() {
+    return { socket: null, gameState }
   },
-  methods: {
-    handleClick(){
-      console.log('click')
-      this.state='bounce'
-    }
-  },
-  data() { return { state: null}}
+  mounted() {
+    this.gameState.socket = new WebSocket("ws://localhost:9090/events");
+    this.gameState.socket.onmessage=event=>this.gameState.handleMessage(event.data)
+  }
 }
 </script>
 
@@ -32,6 +25,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align:center;
   color: #2c3e50;
-  margin-top: 60px;
+  width:100%;
+  height:100%;
+  
+}
+html, body {
+  width:100%;
+  height: 100%;
 }
 </style>
