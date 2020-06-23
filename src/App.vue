@@ -3,7 +3,7 @@
     <transition name="component-fade" mode="out-in">
       <router-view :gameState="gameState"/>
     </transition>
-    <PlayersOnline class="players-online" />
+    <PlayersOnline class="players-online" :always="$route.path.indexOf('decide')>-1"/>
 
   </div>
 </template>
@@ -11,6 +11,11 @@
 <script>
 import {gameState} from './gamestate'
 import PlayersOnline from "./components/PlayersOnline";
+
+function ping() {
+  gameState.ping()
+  setTimeout(ping, 10000)
+}
 export default {
   name: 'app',
   components: {PlayersOnline},
@@ -19,19 +24,16 @@ export default {
   },
   mounted() {
     this.gameState.socket = new WebSocket("ws://localhost:9090/events");
-    //this.gameState.socket.onopen = ()=>gameState.
-    this.gameState.socket.onmessage=event=>this.gameState.handleMessage(event.data)
+    this.gameState.socket.onopen=()=> {
+        this.gameState.socket.onmessage = event => this.gameState.handleMessage(event.data)
+      ping()
+      }
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align:center;
-  color: #2c3e50;
   width:100%;
   height:100%;
   
@@ -39,6 +41,7 @@ export default {
 html, body {
   width:100%;
   height: 100%;
+
 }
 .component-fade-enter-active, .component-fade-leave-active {
   transition: opacity .3s ease;

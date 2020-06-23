@@ -1,15 +1,25 @@
 <template>
     <b-container>
-        <b-jumbotron lead="Budget-friendly decision making Tool for Government">
+
+        <b-jumbotron  bg-variant="info" text-variant="white" border-variant="dark">
             <template v-slot:header>
+                <div style="text-align:center">
                 <player-icon type="scissors"/>
                 <player-icon type="paper"/>
                 <player-icon type="rock"/>
+                </div>
+
             </template>
-
-            <p>COVID-safe when used correctly</p>
+            <template v-slot:lead>
+                <div style="text-align:center">
+                    A budget-friendly decision making Tool for Government
+                </div>
+            </template>
+                <hr class="my-4">
+            <p>*COVID-safe when used correctly</p>
         </b-jumbotron>
-
+        <b-row>
+            <b-col>
         <b-form-group
 
                 :label-cols="4"
@@ -19,8 +29,12 @@
         >
             <b-form-input v-model.trim="name" :state="nameState"></b-form-input>
         </b-form-group>
-        <b-btn variant="primary" @click="login" :disabled="name==null||name.length==0" v-model="name">Make a decision
+            </b-col>
+            <b-col>
+        <b-btn variant="primary" @click="login" :disabled="name==null||name.length==0" v-model="name">Login
         </b-btn>
+            </b-col>
+        </b-row>
     </b-container>
 </template>
 

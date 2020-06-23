@@ -2,7 +2,7 @@
     constructor(){
         this.name = null
         this.loggedIn = false
-        this.players = null
+        this.players = []
         this.socket = null
         this.errorMessage = null
     }
@@ -10,23 +10,23 @@
         msg = JSON.parse(msg)
         console.log(msg)
         switch(msg.type){
-            case "player_list":
+            case "logged_in":
                 this.loggedIn = true
-                this.players = msg.players
+                return
+            case "player_list":
+                this.players = msg.players.filter(f=>f!==this.name)
                 return
             case "error":
                 this.errorMessage = msg.message
 
         }
     }
+     ping(){
+         this.socket.send(JSON.stringify({type: 'ping',name:this.name}))
+     }
     login(name){
         this.name = name
         this.socket.send(JSON.stringify({type: 'login',name:this.name}))
-    }
-    filteredPlayers(){
-        if (this.players == null)
-            return null
-        return this.players.filter(f=>f!==this.name)
     }
 }
 

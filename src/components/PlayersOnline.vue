@@ -1,14 +1,18 @@
 <template>
-        <div class="players-online-wrapper">
+        <div class="players-online-wrapper shadow" v-if="always || !noone">
     <b-card
+            border-variant="primary"
             header="Online Now"
+            header-bg-variant="primary"
+            header-text-variant="white"
+            align="center" style="height:100%"
     >
         <b-card-text>
             <transition-group name="list-complete" tag="ul">
-                <li v-if="filteredPlayers==null||filteredPlayers.length==0" key="_none">
+                <li v-if="noone" key="_none">
                     No players online...
                 </li>
-                <li v-for="(player) in filteredPlayers" :key="player">
+                <li v-for="(player) in gameState.players" :key="player">
                     {{player}}
                 </li>
             </transition-group>
@@ -21,10 +25,12 @@
     import {gameState} from "../gamestate";
 
     export default {
+        props: ['always'],
         name: "PlayersOnline",
+        data() { return { gameState} },
         computed: {
-            filteredPlayers(){
-                return gameState.filteredPlayers()
+            noone(){
+                return this.gameState.players.length==0
             }
         },
     }
@@ -35,9 +41,12 @@
     .players-online{
         position:absolute;
         right:10px;
-        bottom:10px;
-        height:15em;
-        width:10em;
+        top:10px;
+        width:12rem;
+
+    }
+    .players-online-wrapper {
+        /*font-family: 'Oswald', Helvetica, sans-serif;*/
     }
     .players-online-wrapper ul {
         list-style:none;
