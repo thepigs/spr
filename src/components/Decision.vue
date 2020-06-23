@@ -42,13 +42,14 @@ export default {
     },
     computed: {
       filteredPlayers(){
-        return gameState.players
+        return gameState.filteredPlayers()
       }
     },
     methods: {
       login(){}
     },
     mounted() {
+
       if (localStorage.name) {
         this.name = localStorage.name;
       }
