@@ -7,7 +7,7 @@
         <h1>DECISION<br/>BATTLE</h1>
             <p>If <span style="font-size:110%">{{gameState.name}}</span> defeats</p>
 
-        <b-form-select v-model="selected" :options="noone?disabledOptions:null" :disabled="noone" ></b-form-select>
+        <b-form-select v-model="selected" :options="noone?disabledOptions:gameState.players" :disabled="noone" ></b-form-select>
 
         <p>
             <span style="font-size:140%">Then</span>
@@ -15,11 +15,11 @@
         <b-form-textarea
                 id="textarea"
                 v-model="text"
-                placeholder="Enter some text that becomes law after  battle..."
+                placeholder="Enter some text that becomes law after battle..."
                 rows="3"
                 max-rows="6"
         ></b-form-textarea>
-            <button class="example_a" @click="fight">FIGHT !</button>
+            <button class="example_a" @click="fight" :disabled="selected==null || !text">FIGHT !</button>
 
         </div>
 
@@ -38,6 +38,7 @@ export default {
     data() { return {
         selected:null,
         gameState,
+        text:null,
         disabledOptions: [
             { value: null, text: 'Waiting for players...' },
         ]
@@ -46,11 +47,12 @@ export default {
     computed: {
       noone(){
         return gameState.players.length==0
-      }
+      },
     },
     methods: {
       fight(){
-          gameState.battle(this.selected)
+          this.gameState.battle_invite(this.selected)
+          //this.$router.push("/battle/"+this.name)
       }
     },
     mounted() {
@@ -62,6 +64,10 @@ export default {
     watch: {
       name(newName) {
         localStorage.name = newName;
+      },
+      'gameState.players'() {
+          if (this.selected==null && this.gameState.players.length>0)
+              this.selected=this.gameState.players[0]
       }
     }
 
@@ -101,7 +107,7 @@ export default {
          transition: all 0.4s ease 0s;
      }
 
-.example_a:hover {
+.example_a:hover:enabled {
     background: #434343;
     letter-spacing: 2px;
     -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
@@ -109,6 +115,10 @@ export default {
     box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
     transition: all 0.4s ease 0s;
 }
+.example_a:disabled {
+    background: #ddd
+}
+
 
 body {
     background: radial-gradient(600px at 50% 50% , #fff 20%, #000 100%);

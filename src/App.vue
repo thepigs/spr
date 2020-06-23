@@ -4,7 +4,13 @@
       <router-view :gameState="gameState"/>
     </transition>
     <PlayersOnline class="players-online" :always="$route.path.indexOf('decide')>-1"/>
-
+    <div>
+      <b-modal id="invite-modal" title="Battle Invite" ok-title="Let's Battle!" cancel-title="Not today" @cancel="rsvp('reject')" @ok="rsvp('accept')">
+        <p class="my-4">You are being invited to battle by {{gameState.inviter }} !</p>
+        <p>The terms:</p>
+        <p>{{gameState.text}}</p>
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -28,6 +34,11 @@ export default {
         this.gameState.socket.onmessage = event => this.gameState.handleMessage(event.data)
       ping()
       }
+      this,gameState.App = this
+  }, methods: {
+      battle_rsvp(button){
+      this.gameState.rsvp(button)
+    }
   }
 }
 </script>

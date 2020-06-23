@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Menu from './components/Menu'
 import Decision from './components/Decision'
+import Battle from './components/Battle'
+
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
@@ -17,7 +19,8 @@ Vue.config.productionTip = false
 
 const routes = [
   { path: '/', component: Menu },
-  { path: '/decide', component: Decision }
+  { path: '/decide', component: Decision },
+  { path: '/battle/:id', component: Battle }
 ]
 const router = new VueRouter({
   routes // short for `routes: routes`
