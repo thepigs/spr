@@ -10,8 +10,10 @@
   "dependencies": {
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
+    "bourbon": "^7.0.0",
     "core-js": "^3.6.5",
     "gsap": "^3.3.3",
+    "lodash.merge": "^4.6.2",
     "vue": "^2.6.11",
     "vue-bootstrap-typeahead": "^0.2.6",
     "vue-router": "^3.3.4",
@@ -25,6 +27,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.14.1",
+    "sass": "^1.26.9",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.11"

@@ -7,6 +7,7 @@
         this.battle = false
         this.loggedIn = false
         this.versus = null
+        this.versusSelected = null
         this.text = null
 
     }

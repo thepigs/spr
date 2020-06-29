@@ -4,7 +4,7 @@
     <b-col cols="8">
         <div class="declaration">
 
-        <h1>DECISION<br/>BATTLE</h1>
+        <h1>DECISION<br/>BATTLE!</h1>
             <p>If <span style="font-size:110%">{{gameState.name}}</span> defeats</p>
 
         <b-form-select v-model="selected" :options="noone?disabledOptions:gameState.players" :disabled="noone" ></b-form-select>
@@ -19,7 +19,7 @@
                 rows="3"
                 max-rows="6"
         ></b-form-textarea>
-            <button class="example_a" @click="fight" :disabled="selected==null || !text">FIGHT !</button>
+            <button class="fight_button" @click="fight" :disabled="selected==null || !text">FIGHT !</button>
 
         </div>
 
@@ -95,33 +95,9 @@ export default {
     .declaration{
         font-family: 'Luckiest Guy', cursive;font-size:30px
     }
-.example_a {
-         color: #fff !important;
-         text-transform: uppercase;
-         text-decoration: none;
-         background: #ed3330;
-         padding: 20px;
-         border-radius: 5px;
-         display: inline-block;
-         border: none;
-         transition: all 0.4s ease 0s;
-     }
-
-.example_a:hover:enabled {
-    background: #434343;
-    letter-spacing: 2px;
-    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
-    transition: all 0.4s ease 0s;
-}
-.example_a:disabled {
-    background: #ddd
-}
-
 
 body {
-    background: radial-gradient(600px at 50% 50% , #fff 20%, #000 100%);
+    /*background: radial-gradient(600px at 50% 50% , #fff 20%, #000 100%);*/
 }
 h1 {
     text-align: center;
@@ -142,4 +118,32 @@ h1 {
             -8px -8px 0 firebrick,
             -30px 20px 40px dimgrey
 }
+
+    </style>
+
+<style>
+.fight_button {
+         color: #fff !important;
+         text-transform: uppercase;
+         text-decoration: none;
+         background: #ed3330;
+         padding: 20px;
+         border-radius: 5px;
+         display: inline-block;
+         border: none;
+         transition: all 0.4s ease 0s;
+     }
+
+.fight_button:hover:enabled {
+    background: #434343;
+    letter-spacing: 2px;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+    transition: all 0.4s ease 0s;
+}
+.fight_button:disabled {
+    background: #ddd
+}
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="player-icon" :class="{'player-left-hand':handedness==='left'}" :style="iconStyle">{{ icon }}</div>
+    <div class="player-icon" :class="{'player-left-hand':handedness==='left','rotate--90':type=='rock'||type=='scissors'}">{{icon}}</div>
 </template>
 <script>
 export default {
@@ -9,12 +9,15 @@ export default {
             switch(this.type){
                 case 'scissors':
                     return '✌️'
-                case 'rock':
+                case 'fist':
                     return '🤜'
                 case 'paper':
                     return '🤚'
-                case 'fist':
+                case 'rock':
                     return '👊'
+                case 'thumbdown':
+                    return '👎'
+
             }
             return "X"
         },
@@ -37,9 +40,13 @@ export default {
 <style>
 .player-icon {
     display:inline-block;
+    text-align:center;
 }
 .player-left-hand {
     transform: scaleX(-1)
 }
+    .rotate--90{
+        transform: rotateZ(-90deg)
+    }
 
 </style>
