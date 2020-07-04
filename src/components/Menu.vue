@@ -3,10 +3,10 @@
 
         <b-jumbotron  bg-variant="info" text-variant="white" border-variant="dark">
             <template v-slot:header>
-                <div style="text-align:center">
-                <player-icon type="scissors"/>
-                <player-icon type="paper"/>
-                <player-icon type="rock"/>
+                <div style="text-align:center" class="menu">
+                <player-icon type="scissors" :scale="4"/>
+                <player-icon type="paper" :scale="4"/>
+                <player-icon type="rock" :scale="4"/>
                 </div>
 
             </template>
@@ -27,7 +27,7 @@
                 label="Enter your name"
                 :invalid-feedback="errorMessage"
         >
-            <b-form-input v-model.trim="name" :state="nameState"></b-form-input>
+            <b-form-input v-model.trim="name" :state="nameState" maxlength="10"></b-form-input>
         </b-form-group>
             </b-col>
             <b-col>
@@ -50,9 +50,6 @@
         },
         components: {PlayerIcon},
         computed: {
-            headerHtml() {
-                return '<div style="display:inline-block;transform: rotateZ(-90deg) scaleY(-1)">✌️</div> 🤚 🤜'
-            },
             errorMessage() {
                 return this.gameState.errorMessage
             },
@@ -89,5 +86,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+div.menu img{
+    padding:0 10px;
+}
 </style>

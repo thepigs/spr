@@ -4,7 +4,7 @@
     <b-col cols="8">
         <div class="declaration">
 
-        <h1>DECISION<br/>BATTLE!</h1>
+        <h1>THE STAKES!</h1>
             <p>If <span style="font-size:110%">{{gameState.name}}</span> defeats</p>
 
         <b-form-select v-model="selected" :options="noone?disabledOptions:gameState.players" :disabled="noone" ></b-form-select>
@@ -15,7 +15,7 @@
         <b-form-textarea
                 id="textarea"
                 v-model="text"
-                placeholder="Enter some text that becomes law after battle..."
+                placeholder="Enter the stakes..."
                 rows="3"
                 max-rows="6"
         ></b-form-textarea>
@@ -65,9 +65,12 @@ export default {
       name(newName) {
         localStorage.name = newName;
       },
-      'gameState.players'() {
-          if (this.selected==null && this.gameState.players.length>0)
-              this.selected=this.gameState.players[0]
+      'gameState.players': {
+          immediate:true,
+          handler() {
+              if (this.selected == null && this.gameState.players.length > 0)
+                  this.selected = this.gameState.players[0]
+          }
       }
     }
 
@@ -96,9 +99,6 @@ export default {
         font-family: 'Luckiest Guy', cursive;font-size:30px
     }
 
-body {
-    /*background: radial-gradient(600px at 50% 50% , #fff 20%, #000 100%);*/
-}
 h1 {
     text-align: center;
     font-family: 'Oswald', Helvetica, sans-serif;

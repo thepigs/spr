@@ -1,7 +1,7 @@
  class GameState {
     constructor(){
         this.name = null
-        this.players = []
+        this.players = Array.from(Array(15).keys(),k=>'player'+k)
         this.socket = null
         this.errorMessage = null
         this.battle = false
@@ -20,6 +20,7 @@
                 return
             case "player_list":
                 this.players = msg.players.filter(f=>f!==this.name)
+
                 return
             case "error":
                 this.errorMessage = msg.message

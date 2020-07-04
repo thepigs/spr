@@ -3,7 +3,7 @@
     <transition name="component-fade" mode="out-in">
       <router-view :gameState="gameState"/>
     </transition>
-    <PlayersOnline class="players-online" :always="$route.path.indexOf('decide')>-1"/>
+    <PlayersOnline v-if="$route.path.indexOf('battle')==-1" class="players-online" :always="$route.path.indexOf('decide')>-1"/>
     <div>
       <b-modal id="invite-modal" title="Battle Invite" ok-title="Let's Battle!" cancel-title="Not today" @cancel="rsvp('reject')" @ok="rsvp('accept')">
         <p class="my-4">You are being invited to battle by {{gameState.inviter }} !</p>
@@ -50,9 +50,9 @@ export default {
   
 }
 html, body {
-  width:100%;
-  height: 100%;
-
+  width:100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 .component-fade-enter-active, .component-fade-leave-active {
   transition: opacity .3s ease;
@@ -60,5 +60,25 @@ html, body {
 .component-fade-enter, .component-fade-leave-to
   /* .component-fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

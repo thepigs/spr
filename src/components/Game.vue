@@ -1,25 +1,6 @@
 <template>
   <div class="game">
-    <transition-group name="ttext">
-      <div
-        class="countdown otto"
-        style="position:absolute"
-        v-if="this.count==1"
-        :key="1"
-      >{{this.count}}...</div>
-      <div
-        class="countdown otto"
-        style="position:absolute"
-        v-if="this.count==2"
-        :key="2"
-      >{{this.count}}...</div>
-      <div
-        class="countdown otto"
-        style="position:absolute"
-        v-if="this.count==3"
-        :key="3"
-      >{{this.count}}...</div>
-    </transition-group>
+
 
     <div style="transform: rotate(90deg) scaleX(-1);font-size:10em">✌️</div>
     <player ref="player1" id="player1" :type="player1_type" x="100" />
