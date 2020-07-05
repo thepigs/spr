@@ -6,8 +6,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Menu from './components/Menu'
 import Decision from './components/Decision'
 import Battle from './components/Battle'
-
 import VueRouter from 'vue-router'
+import {gameState} from "./gamestate";
+// import {gameState} from "./gamestate";
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
@@ -24,6 +25,16 @@ const routes = [
 ]
 const router = new VueRouter({
   routes // short for `routes: routes`
+})
+router.beforeEach((to,from,next) => {
+  console.log(to,from,next,gameState)
+
+  if (to.path!=='/' &&!gameState.loggedIn ){
+    next('/')
+  }
+  else
+    next()
+
 })
 new Vue({
   router,

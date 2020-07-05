@@ -44,6 +44,11 @@
          this.text = text
          this.socket.send(JSON.stringify({type: 'battle_invite',name,text}))
      }
+     battle_cancel() {
+         this.versus = null
+         this.text = null
+
+     }
      battle_rsvp(button){
          this.socket.send(JSON.stringify({type: 'battle_rsvp', action:button}))
      }

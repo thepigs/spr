@@ -1,12 +1,6 @@
 <template>
-    <div class="players-online-wrapper shadow" v-if="always || !noone">
-        <b-card
-                border-variant="primary"
-                header="Online Now"
-                header-bg-variant="primary"
-                header-text-variant="white"
-                align="center" no-body
-        >
+    <div v-drag:handle class="players-online shadow" v-if="always || !noone">
+        <div id="handle" class="players-online-header">Online Now</div>
             <div class="scrolllist">
                 <transition-group name="list-complete" tag="ul">
                     <li v-if="noone" key="_none">
@@ -17,16 +11,20 @@
                     </li>
                 </transition-group>
             </div>
-        </b-card>
     </div>
 </template>
 
 <script>
     import {gameState} from "../gamestate";
+    import drag from '@branu-jp/v-drag'
 
     export default {
+        directives: {
+            drag
+        },
         props: ['always'],
         name: "PlayersOnline",
+//        components: {chat},
         data() {
             return {gameState}
         },
@@ -45,25 +43,33 @@
         right: 10px;
         top: 10px;
         width: 12rem;
-
-    }
-
-    .players-online-wrapper {
         /*font-family: 'Oswald', Helvetica, sans-serif;*/
+        background-color:white;
+        border-radius:5px;
+        overflow:hidden;
+        border:#007bff solid 2px;
+
     }
 
-    .players-online-wrapper ul {
+    .players-online-header{
+        background-color:#00B;
+        color:white;
+        padding:10px;
+        cursor: grab;
+    }
+
+    .players-online ul {
         list-style: none;
-        padding: 0;
+        padding: 5px;
         margin: 0
     }
 
-    .players-online-wrapper li {
+    .players-online li {
         display: block;
     }
 
     .scrolllist {
         max-height: 8em;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 </style>

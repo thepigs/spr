@@ -4,13 +4,17 @@
       <router-view :gameState="gameState"/>
     </transition>
     <PlayersOnline v-if="$route.path.indexOf('battle')==-1" class="players-online" :always="$route.path.indexOf('decide')>-1"/>
-    <div>
-      <b-modal id="invite-modal" title="Battle Invite" ok-title="Let's Battle!" cancel-title="Not today" @cancel="rsvp('reject')" @ok="rsvp('accept')">
-        <p class="my-4">You are being invited to battle by {{gameState.inviter }} !</p>
-        <p>The terms:</p>
-        <p>{{gameState.text}}</p>
-      </b-modal>
-    </div>
+    <b-modal id="invite-modal" title="Battle Invite" ok-title="Let's Battle!" cancel-title="Not today" @cancel="rsvp('reject')" @ok="rsvp('accept')">
+      <p class="my-4">You are being invited to battle by {{gameState.inviter }} !</p>
+      <p>Stakes:</p>
+      <p>{{gameState.text}}</p>
+    </b-modal>
+    <b-modal id="battle-modal" title="Waiting..." :no-close-on-backdrop="true" :no-close-on-esc="true" :ok-only="true" ok-title="Cancel" @ok="cancel">
+      <p class="my-4">Inviting {{gameState.versus }} to battle! Please wait for {{gameState.versus }} to accept...</p>
+      <p>The terms:</p>
+      <p>{{gameState.text}}</p>
+    </b-modal>
+
   </div>
 </template>
 
@@ -37,7 +41,10 @@ export default {
       this,gameState.App = this
   }, methods: {
       battle_rsvp(button){
-      this.gameState.rsvp(button)
+      this.gameState.battle_rsvp(button)
+    },
+    cancel(){
+      this.gameState.cancel();
     }
   }
 }
