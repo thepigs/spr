@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <transition name="component-fade" mode="out-in">
-      <router-view :gameState="gameState"/>
+      <component :is="gameState.component"></component>
     </transition>
-    <PlayersOnline v-if="$route.path.indexOf('battle')==-1" class="players-online" :always="$route.path.indexOf('decide')>-1"/>
-    <b-modal id="invite-modal" title="Battle Invite" ok-title="Let's Battle!" cancel-title="Not today" @cancel="rsvp('reject')" @ok="rsvp('accept')">
-      <p class="my-4">You are being invited to battle by {{gameState.inviter }} !</p>
+    <PlayersOnline v-if="gameState.component.name!=='Battle'" class="players-online" :always="gameState.component.name==='Decision'"/>
+    <b-modal id="invite-modal" title="Battle Invite" ok-title="Let's Battle!" cancel-title="Not today" @cancel="rsvp('reject')" :no-close-on-backdrop="true" :no-close-on-esc="true" @ok="rsvp('accept')">
+      <p class="my-4">You are being invited to battle by {{gameState.versus }} !</p>
       <p>Stakes:</p>
       <p>{{gameState.text}}</p>
     </b-modal>
     <b-modal id="battle-modal" title="Waiting..." :no-close-on-backdrop="true" :no-close-on-esc="true" :ok-only="true" ok-title="Cancel" @ok="cancel">
       <p class="my-4">Inviting {{gameState.versus }} to battle! Please wait for {{gameState.versus }} to accept...</p>
-      <p>The terms:</p>
+      <p>Stakes:</p>
       <p>{{gameState.text}}</p>
     </b-modal>
 
@@ -24,7 +24,7 @@ import PlayersOnline from "./components/PlayersOnline";
 
 function ping() {
   gameState.ping()
-  setTimeout(ping, 10000)
+  setTimeout(ping, 30000)
 }
 export default {
   name: 'app',
@@ -40,7 +40,7 @@ export default {
       }
       this,gameState.App = this
   }, methods: {
-      battle_rsvp(button){
+      rsvp(button){
       this.gameState.battle_rsvp(button)
     },
     cancel(){

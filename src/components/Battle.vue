@@ -62,7 +62,7 @@
         <fireworks v-if="battleState==='selected-done-winner'"/>
         <transition name="component-fade">
             <div style="width:100%;position:absolute;margin-top:80px;z-index:99999;display:flex;justify-content: center" v-if="battleState.startsWith('selected-done')">
-                <button class="fight_button" @click="$router.replace('/decide')">Play again</button>
+                <button class="fight_button" @click="gameState.gotoDecide()">Play again</button>
             </div>
         </transition>
     </div>
@@ -103,19 +103,22 @@
             }
         },
         mounted() {
-            if (this.$route.query.state) {
-                console.log(this.$route.query.state)
-                merge(this.gameState, JSON.parse(this.$route.query.state))
+            if (window.location.search) {
+                console.log(window.location.search)
+                merge(this.gameState, JSON.parse(window.location.search))
 
             }
         },
         watch: {
+            'gameState.versusSelected'() {
+                this.battleState = 'selected-ready'
+            },
             battleState: {
                 immediate: true,
                 handler(newState) {
                     switch (newState) {
                         case 'selected-waiting':
-                            setTimeout(() => this.battleState = 'selected-ready', 1000)
+                            gameState.battle_select(this.selected)
                             break;
                         case 'selected-ready':
                             setTimeout(() => this.battleState = 'selected-go', 1000)

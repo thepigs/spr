@@ -1,3 +1,7 @@
+import Menu from './components/Menu'
+
+import Decision from "./components/Decision";
+
  class GameState {
     constructor(){
         this.name = null
@@ -9,7 +13,7 @@
         this.versus = null
         this.versusSelected = null
         this.text = null
-
+        this.component = Menu
     }
     handleMessage(msg){
         msg = JSON.parse(msg)
@@ -24,6 +28,9 @@
                 return
             case "error":
                 this.errorMessage = msg.message
+                return;
+            case "battle_over":
+                this.versusSelected = msg.selected
                 return;
             case "battle_invite":
                 this.versus = msg.name
@@ -44,19 +51,27 @@
          this.text = text
          this.socket.send(JSON.stringify({type: 'battle_invite',name,text}))
      }
+     battle_select(selected) {
+         this.socket.send(JSON.stringify({type: 'battle_select',selected}))
+
+     }
      battle_cancel() {
          this.versus = null
          this.text = null
 
      }
      battle_rsvp(button){
-         this.socket.send(JSON.stringify({type: 'battle_rsvp', action:button}))
+         this.socket.send(JSON.stringify({type: 'battle_rsvp', action:button, name:this.versus}))
      }
 
 
     login(name){
         this.name = name
         this.socket.send(JSON.stringify({type: 'login',name:this.name}))
+    }
+
+    gotoDecide(){
+        this.component = Decision
     }
 }
 

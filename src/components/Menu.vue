@@ -40,12 +40,14 @@
 
 <script>
     import PlayerIcon from './PlayerIcon'
+    import Decision from "./Decision";
+    import {gameState} from '../gamestate'
 
     export default {
-        props: ['gameState'],
         data() {
             return {
                 name: null,
+                gameState
             }
         },
         components: {PlayerIcon},
@@ -75,9 +77,8 @@
                 localStorage.name = newName;
             },
             'gameState.loggedIn'(isLoggedIn) {
-                console.log('here', isLoggedIn)
                 if (isLoggedIn)
-                    this.$router.push('decide')
+                    this.gameState.component=Decision
             },
         }
 

@@ -29,7 +29,7 @@ f<template>
 
 <script>
     import {gameState} from '../gamestate';
-    //import PlayerIcon from './PlayerIcon'
+    import Battle from "./Battle";
     export default {
         //components: {PlayerIcon},
         data() {
@@ -70,10 +70,12 @@ f<template>
                         this.selected = this.gameState.players[0]
                 }
             },
-            'gameState.battleState': {
+            'gameState.battle': {
                 handler(newValue) {
-                    if (newValue == 'battle_start')
-                        this.$router.push('/battle')
+                    if (newValue) {
+                        this.$bvModal.hide('battle-modal')
+                        this.gameState.component=Battle
+                    }
                 }
             }
         }
@@ -136,5 +138,8 @@ f<template>
     .fight_button:disabled {
         background: #ddd
     }
-
+   .decision .custom-select,    .decision textarea
+    {
+       font-size:0.75em
+   }
 </style>
