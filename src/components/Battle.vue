@@ -14,7 +14,7 @@
                     <div class="pi-wrapper" :class="{selected:type===selected,'pi-wrapper-hover':!selectionMade}"
                          v-for="type in ['scissors','paper','rock']" :key="type"
                          @click="select(type)">
-                        <PlayerIcon style="font-size:3em" :type="type"/>
+                        <PlayerIcon :scale="5" :type="type"/>
                     </div>
                 </div>
 
@@ -46,8 +46,8 @@
                 <br/>
                 <div style="font-size:5em;display:flex;justify-content: space-around"
                      ref="runDiv" key="runDiv">
-                    <PlayerIcon ref="player1" :type="battleState.startsWith('selected-done')?selected:'rock'"/>
-                    <PlayerIcon ref="player2"
+                    <PlayerIcon ref="player1" :scale="6" :type="battleState.startsWith('selected-done')?selected:'rock'"/>
+                    <PlayerIcon ref="player2" :scale="6"
                                 :type="battleState.startsWith('selected-done')?gameState.versusSelected:'rock'"/>
                 </div>
             </div>
@@ -95,6 +95,7 @@
             },
             onSelectionMade() {
                 this.selectionMade = true;
+                this.gameState.battle_select(this.selected)
                 fade(this.$refs.battleDiv, {
                     onComplete: () => {
                         this.battleState = 'selected-waiting'
@@ -170,6 +171,8 @@
         margin: 10px;
         opacity: 0.8;
         border-radius: 10px;
+        display:flex;
+        align-items: center;
     }
 
     .selected {
